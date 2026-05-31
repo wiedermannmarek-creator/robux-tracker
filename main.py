@@ -16,7 +16,18 @@ def check():
 
         page.wait_for_timeout(5000)
 
-        text = page.inner_text("body")
+        blocks = page.query_selector_all("div")
+
+        deals = []
+
+        for b in blocks:
+            t = b.inner_text().strip()
+
+        if "/ unit" in t and "$" in t:
+            deals.append(t)
+
+        send("🔍 FOUND DEALS: " + str(len(deals)))
+        send("\n\n".join(deals[:5]))
 
         # 🔥 DEBUG: pošli část textu na Discord
         send("🔍 DEBUG START")
